@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
-export class NavBar extends Component {
-    render() {
-        return(
-          <div>
-            The NavBar will go here
-          </div>
-        )
-      }
-}
-
+const NavView = ({loggedIn}) => (
+    <div>
+        {(loggedIn)? <div>The navbar will go here</div> : <div/>}
+    </div>
+)
+const mapStateToProps = state => ({
+    loggedIn: state.login.loggedIn
+})
+const NavBar = connect(mapStateToProps)(NavView)
 export default NavBar;

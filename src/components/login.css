@@ -1,0 +1,11 @@
+div.login {
+    margin-left: 35%;
+    margin-right: 35%;
+    margin-top: 20%;
+    text-align: center;
+}
+Button.loginButton {
+    align-items: center;
+    align-self: center;
+    align-content: center;
+}
