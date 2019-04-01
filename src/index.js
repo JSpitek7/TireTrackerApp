@@ -1,12 +1,29 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import { render } from 'react-dom'
+import App from './components/app.js'
+import { Router, Route } from "react-router-dom";
+import history from './history';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import AdminDashboardPage from './components/pages/adminDashboardPage.js'
+import DriverProfilePage from './components/pages/driverProfilePage.js'
+import TireReplacementPage from './components/pages/tireReplacementPage.js'
+import LoginPage from './components/pages/loginPage.js'
+import TruckPage from './components/pages/truckPage.js'
 
-ReactDOM.render(<App />, document.getElementById('root'));
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+render(
+    <div>
+        <App>
+        <Router history={history}>
+                <div>
+                    <Route exact path="/login" component={LoginPage}/>
+                    <Route exact path="/tire" component={TireReplacementPage}/>
+                    <Route exact path="/driver" component={DriverProfilePage}/>
+                    <Route exact path="/admin" component={AdminDashboardPage}/>
+                    <Route exact path="/truck" component={TruckPage}/>
+                </div>
+        </Router>
+        </App>
+    </div>,
+    document.getElementById('root')
+  )
