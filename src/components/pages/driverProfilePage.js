@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import DriverProfile from '../driverProfile.js'
 class DriverProfilePage extends Component {
     render() {
         return(
-            <div>
-                The driver profile page will go here.
+            <div className='driver'>
+                <DriverProfile/>
             </div>
         )
     }
