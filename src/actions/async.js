@@ -6,7 +6,7 @@ import { userLogin,
         requestModels,
         receiveModels } from './index.js'
 import history from '../history.js'
-let url = 'http://localhost:8080'
+let url = 'https://tire-tracker-api.herokuapp.com'
 
 export function login(username, password) {
     return dispatch => {
