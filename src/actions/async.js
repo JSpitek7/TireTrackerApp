@@ -11,13 +11,14 @@ export function login(username, password) {
         .then(
             response => {
                 let responseBody = response.json();
-                dispatch(receiveLogin(responseBody));
                 dispatch(userLogin());
-                history.push('/tires');
+                history.push('/driver');
+                return responseBody;
             },
             error => {
                 console.log('An error occured.', error);
+                return [];
             }
-        )
+        ).then(responseBody => dispatch(receiveLogin(responseBody)))
     }
 }

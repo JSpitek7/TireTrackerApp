@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class TruckPage extends Component {
     render() {
         return(
-            <div>
+            <div className='driver'>
                 The truck page will go here.
             </div>
         )

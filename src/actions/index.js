@@ -27,6 +27,6 @@ export function requestLogin() {
 export function receiveLogin(json) {
     return {
         type: 'RECEIVE_LOGIN',
-        employeeInfo: json
+        employee: json
     }
 }
