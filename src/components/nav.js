@@ -11,7 +11,7 @@ const NavView = ({loggedIn, role}) => (
             <img src={require('../images/lawrencelogo.jpg')} height="80"
             className="d-inline-block align-top" alt="Lawrence Transportation"/>
         <div class='container justify-content-center'>
-            <NavbarBrand><h1></h1></NavbarBrand></div>
+            <NavbarBrand><h1>TireTracker</h1></NavbarBrand></div>
         </Navbar>
             {(role === 'Truck Driver')? <Nav fill variant="tabs" onSelect={k => history.push(k)}>
                 <div class='container'><div class='row'>
