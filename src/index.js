@@ -14,10 +14,11 @@ import DriverProfilePage from './components/pages/driverProfilePage.js'
 import TireReplacementPage from './components/pages/tireReplacementPage.js'
 import LoginPage from './components/pages/loginPage.js'
 import TruckPage from './components/pages/truckPage.js'
+import {fetchBrands} from './actions/async.js'
 
 const loggerMiddleWare = createLogger();
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, loggerMiddleWare));
-
+store.dispatch(fetchBrands());
 render(
     <Provider store={store}>
         <App>
