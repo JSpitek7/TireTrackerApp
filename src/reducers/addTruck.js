@@ -1,28 +1,18 @@
-let initialState = {
+const initialState = {
     licensePlate: '',
-    index: '',
-    modelId: '',
-    mileage: '',
+    truckModelId: '',
     alert: false,
     error: false
 }
-const replacementInfo =(state = initialState, action) => {
+const addTruck =(state = initialState, action) => {
     switch (action.type) {
-        case 'UPDATE_MILEAGE':
-            return Object.assign({}, state, {
-                mileage: action.mileage
-            })
-        case 'UPDATE_MODEL':
-            return Object.assign({}, state, {
-                modelId: action.model
-            })
-        case 'UPDATE_LICENSE_PLATE':
+        case 'UPDATE_TRUCK_LICENSE_PLATE':
             return Object.assign({}, state, {
                 licensePlate: action.licensePlate
             })
-        case 'UPDATE_INDEX':
+        case 'UPDATE_TRUCK_MODEL':
             return Object.assign({}, state, {
-                index: action.index
+                truckModelId: action.model
             })
         case 'SHOW_ALERT':
             return Object.assign({}, state, {
@@ -44,4 +34,4 @@ const replacementInfo =(state = initialState, action) => {
             return state
     }
 }
-export default replacementInfo
+export default addTruck

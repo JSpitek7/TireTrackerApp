@@ -13,7 +13,7 @@ const NavView = ({loggedIn, role}) => (
         <div class='container justify-content-center'>
             <NavbarBrand><h1>TireTracker</h1></NavbarBrand></div>
         </Navbar>
-            {(role === 'Truck Driver')? <Nav fill variant="tabs" onSelect={k => history.push(k)}>
+            {(role === 'Truck Driver')? <Nav bg='dark' fill variant="tabs" onSelect={k => history.push(k)}>
                 <div class='container'><div class='row'>
                     <div class='col'>
                         <Nav.Item>

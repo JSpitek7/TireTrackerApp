@@ -8,7 +8,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 
 const LoginView = ({ updateUsername, updatePassword, login, loginInfo}) => (
-    <div className='login'>
+    <div className='login'><br/><br/>
         <Card bg='light' border='secondary'>
             <Card.Title>TireTracker Login</Card.Title>
         </Card>

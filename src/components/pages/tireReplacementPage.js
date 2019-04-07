@@ -4,7 +4,7 @@ import TireReplacement from '../tireReplacement.js'
 class TireReplacementPage extends Component {
     render() {
         return(
-            <div className='driver'>
+            <div className='userPage'>
                 <TireReplacement/>
             </div>
         )

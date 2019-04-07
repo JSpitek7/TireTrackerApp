@@ -31,17 +31,6 @@ export function receiveLogin(json) {
         employee: json
     }
 }
-export function requestBrands() {
-    return {
-        type: 'REQUEST_BRANDS'
-    }
-}
-export function receiveBrands(json) {
-    return {
-        type: 'RECEIVE_BRANDS',
-        brands: json
-    }
-}
 export function requestModels() {
     return {
         type: 'REQUEST_MODELS'
@@ -50,6 +39,17 @@ export function requestModels() {
 export function receiveModels(json) {
     return {
         type: 'RECEIVE_MODELS',
+        models: json
+    }
+}
+export function requestTruckModels() {
+    return {
+        type: 'REQUEST_TRUCK_MODELS'
+    }
+}
+export function receiveTruckModels(json) {
+    return {
+        type: 'RECEIVE_TRUCK_MODELS',
         models: json
     }
 }
@@ -65,22 +65,28 @@ export function updateIndex(index) {
         index: index
     }
 }
-export function updateBrand(id) {
-    return {
-        type: 'UPDATE_BRAND',
-        brand: id
-    }
-}
 export function updateModel(id) {
     return {
         type: 'UPDATE_MODEL',
         model: id
     }
 }
-export function updateVin(vin) {
+export function updateTruckModel(id){
+    return{
+        type:'UPDATE_TRUCK_MODEL',
+        model:id
+    }
+}
+export function updateLicensePlate(licensePlate) {
     return {
-        type: 'UPDATE_VIN',
-        vin: vin
+        type: 'UPDATE_LICENSE_PLATE',
+        licensePlate: licensePlate
+    }
+}
+export function updateTruckLicensePlate(licensePlate) {
+    return {
+        type: 'UPDATE_TRUCK_LICENSE_PLATE',
+        licensePlate: licensePlate
     }
 }
 export function showAlert() {
@@ -106,5 +112,12 @@ export function throwError() {
 export function hideError() {
     return {
         type:'HIDE_ERROR'
+    }
+}
+export function updateTruckTire(index,id) {
+    return {
+        type: 'UPDATE_TRUCK_TIRE',
+        index: index,
+        id: id
     }
 }

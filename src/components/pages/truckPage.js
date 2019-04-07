@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import AddTruck from '../addTruck.js'
 
 class TruckPage extends Component {
     render() {
         return(
-            <div className='driver'>
-                The truck page will go here.
+            <div className='userPage'>
+                <AddTruck/>
             </div>
         )
     }

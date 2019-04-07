@@ -1,0 +1,23 @@
+body, html{
+    height: 100%
+}
+#root {
+    height:100%
+}
+.app{
+    height:100%
+}
+.userPage {
+    height: 100%;
+    background: url('../images/backgrounddriver.jpg') no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.loginPage {
+    height: 100%;
+    background: url('../images/backgroundlogin.jpg') no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

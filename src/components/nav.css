@@ -1,4 +1,7 @@
 .navbar,
 .navbar-default {
     background-image: url('../images/bannerallpages3.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
