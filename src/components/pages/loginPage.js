@@ -4,7 +4,7 @@ import Login from '../login.js'
 class LoginPage extends Component {
     render() {
         return(
-            <div className='driver'>
+            <div className='loginPage'>
                 <Login/>
             </div>
         )

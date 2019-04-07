@@ -1,10 +1,10 @@
 import { userLogin,
         requestLogin,
         receiveLogin,
-        requestBrands,
-        receiveBrands,
         requestModels,
-        receiveModels } from './index.js'
+        receiveModels,
+        requestTruckModels,
+        receiveTruckModels } from './index.js'
 import history from '../history.js'
 let url = 'http://localhost:8080'
 
@@ -13,39 +13,26 @@ export function login(username, password) {
         dispatch(requestLogin())
         return fetch(url + '/login/' + username + '/' + password)
         .then(
-            response => {
-                let responseBody = response.json();
-                dispatch(userLogin());
-                history.push('/driver');
-                return responseBody;
-            },
-            error => {
-                console.log('An error occured.', error);
-                return [];
-            }
-        ).then(responseBody => dispatch(receiveLogin(responseBody)))
-    }
-}
-export function fetchBrands() {
-    return dispatch => {
-        dispatch(requestBrands())
-        return fetch(url + '/tire/brands')
-        .then(
             response => response.json(),
             error => {
                 console.log('An error occured.', error);
                 return [];
             }
-        )
-        .then(jsonResponse => {
-            dispatch(receiveBrands(jsonResponse));
-        })
+        ).then(jsonResponse => {
+                if(jsonResponse.foundUser){
+                    dispatch(userLogin());
+                    dispatch(receiveLogin(jsonResponse));
+                    history.push((jsonResponse.empType === 'Truck Driver')? '/tire': '/manager');
+                } else {
+                    console.log("it did this instead");
+                }
+            })
     }
 }
-export function fetchModels(brandId) {
+export function fetchModels() {
     return dispatch => {
         dispatch(requestModels())
-        return fetch(url + '/tire/brands/' + brandId + '/models')
+        return fetch(url + '/tires')
         .then(
             response => response.json(),
             error => {
@@ -58,9 +45,25 @@ export function fetchModels(brandId) {
         })
     }
 }
+export function fetchTruckModels() {
+    return dispatch => {
+        dispatch(requestTruckModels())
+        return fetch(url + '/trucks')
+        .then(
+            response => response.json(),
+            error => {
+                console.log('An error occured.', error);
+                return [];
+            }
+        )
+        .then(jsonResponse => {
+            dispatch(receiveTruckModels(jsonResponse));
+        })
+    }
+}
 export function postTireChangeInfo(driverId, info) {
     return () => {
-        fetch(url + '/tire/changeTire', {
+        fetch(url + '/tires/changeTire', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -68,14 +71,33 @@ export function postTireChangeInfo(driverId, info) {
             body: JSON.stringify({
                 driverId: driverId,
                 mileage: info.mileage,
-                index: info.index,
-                brandId: info.brandId,
+                tireIndex: info.index,
                 modelId: info.modelId,
-                vin: info.vin})
+                licensePlate: info.licensePlate
+            })
         })
         .catch(error => console.error('Error: ', error))
         .then(response => {
             console.log('Success: ', response);
+        })
+    }
+}
+export function postAddTruckInfo(empId, addTruck, truckTire) {
+    return () => {
+        console.log(empId)
+        console.log(addTruck.vin)
+        console.log(addTruck.modelId)
+        fetch(url + '/trucks/add', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                empId: empId,
+                trukLicensePlate: addTruck.licensePlate,
+                truckModelId: addTruck.modelId,
+                truckTireDtoList: truckTire
+            })
         })
     }
 }
