@@ -1,7 +1,6 @@
-div.login {
+.login {
     margin-left: 35%;
     margin-right: 35%;
-    margin-top: 10%;
     text-align: center;
 }
 Button.loginButton {
