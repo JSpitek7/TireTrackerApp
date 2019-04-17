@@ -31,14 +31,25 @@ export function receiveLogin(json) {
         employee: json
     }
 }
-export function requestModels() {
+export function requestAllModels() {
     return {
-        type: 'REQUEST_MODELS'
+        type: 'REQUEST_ALL_MODELS'
     }
 }
-export function receiveModels(json) {
+export function receiveAllModels(json) {
     return {
-        type: 'RECEIVE_MODELS',
+        type: 'RECEIVE_ALL_MODELS',
+        models: json
+    }
+}
+export function requestInStockModels() {
+    return {
+        type: 'REQUEST_IN_STOCK_MODELS'
+    }
+}
+export function receiveInStockModels(json) {
+    return {
+        type: 'RECEIVE_IN_STOCK_MODELS',
         models: json
     }
 }
@@ -51,6 +62,28 @@ export function receiveTruckModels(json) {
     return {
         type: 'RECEIVE_TRUCK_MODELS',
         models: json
+    }
+}
+export function requestTrackedTrucks() {
+    return {
+        type: 'REQUEST_TRUCKS'
+    }
+}
+export function receiveTrackedTrucks(json) {
+    return {
+        type: 'RECEIVE_TRUCKS',
+        trackedTrucks: json
+    }
+}
+export function requestVendors() {
+    return {
+        type: 'REQUEST_VENDORS'
+    }
+}
+export function receiveVendors(json) {
+    return {
+        type: 'RECEIVE_VENDORS',
+        vendors: json
     }
 }
 export function updateMileage(mileage) {
@@ -77,16 +110,22 @@ export function updateTruckModel(id){
         model:id
     }
 }
-export function updateLicensePlate(licensePlate) {
+export function updateTruckId(truckId) {
     return {
-        type: 'UPDATE_LICENSE_PLATE',
-        licensePlate: licensePlate
+        type: 'UPDATE_TRUCK_ID',
+        truckId: truckId
     }
 }
 export function updateTruckLicensePlate(licensePlate) {
     return {
         type: 'UPDATE_TRUCK_LICENSE_PLATE',
         licensePlate: licensePlate
+    }
+}
+export function updateTruckMileage(mileage) {
+    return {
+        type: 'UPDATE_TRUCK_MILEAGE',
+        truckMileage: mileage
     }
 }
 export function showAlert() {
@@ -119,5 +158,29 @@ export function updateTruckTire(index,id) {
         type: 'UPDATE_TRUCK_TIRE',
         index: index,
         id: id
+    }
+}
+export function updatePurchaseVendor(vendorId) {
+    return {
+        type: 'UPDATE_PURCHASE_VENDOR_ID',
+        tireVendorId: vendorId
+    }
+}
+export function updatePurchaseModel(modelId) {
+    return {
+        type: 'UPDATE_PURCHASE_TIRE_MODEL',
+        tireModelId: modelId
+    }
+}
+export function updatePurchasePrice(price) {
+    return {
+        type: 'UPDATE_PURCHASE_PRICE_PER_UNIT',
+        tirePurchasePricePerUnit: price
+    }
+}
+export function updatePurchaseQuantity(quantity) {
+    return {
+        type: 'UPDATE_PURCHASE_QUANTITY',
+        tirePurchaseQuantity: quantity
     }
 }

@@ -4,29 +4,37 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
+import Card from 'react-bootstrap/Card'
 import './tireReplacement.css'
-import {updateLicensePlate, updateIndex, updateModel, updateMileage,
+import {updateTruckId, updateIndex, updateModel, updateMileage,
     showAlert, throwError, hideAlert, hideError} from '../actions/index.js'
 import {postTireChangeInfo} from '../actions/async.js'
 
 const tirePositions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
 
-const TireReplacementView = ({empId, replacementInfo, models, updateLicensePlate, updateIndex,
+const TireReplacementView = ({replacementInfo, truckLicensePlates, models, updateTruckId, updateIndex,
     updateModel, updateMileage, postTireChangeInfo, showAlert, throwError, hideAlert, hideError}) => (
     <div className="TireReplacement"><br/><br/>
     <Form>
         <Form.Group as={Form.Row} controlId="LicensePlateInput">
             <Form.Label column sm={3}>License Plate</Form.Label>
             <Col sm={8}>
-                <Form.Control type="String" placeholder="License Plate" onChange={(event)=>updateLicensePlate(event.target.value)}/>
+                <Form.Control as="select" onChange={(event)=>updateTruckId(event.target.value)}>
+                <option value="" selected disabled hidden>Choose License Plate</option>
+                {truckLicensePlates.map(i=><option id={i.truckId} value={i.truckId} key={i.truckId}>{i.truckLicensePlate}</option>)}
+                </Form.Control>
             </Col>
         </Form.Group>
+        <div class='row justify-content-center'>
+        <Card><img src={require('../images/truckdiagramfinal.JPG')} width="100%" align="middle" alt="Tire Position Diagram"/></Card>
+        </div>
+        <br/>
         <Form.Group as={Form.Row} controlId="TireIndexInput">
             <Form.Label column sm={3}>Tire Index</Form.Label>
             <Col sm={8}>
                 <Form.Control as="select" onChange={(event)=>updateIndex(event.target.value)}>
                 <option value="" selected disabled hidden>Choose Tire Index</option>
-                {tirePositions.map(i => <option id={i} value={i} key={i}>{i}</option>)}
+                {tirePositions.map(i=><option id={i} value={i} key={i}>{i}</option>)}
             </Form.Control>
             </Col>
         </Form.Group>
@@ -47,7 +55,7 @@ const TireReplacementView = ({empId, replacementInfo, models, updateLicensePlate
         </Form.Group>
         <Button variant='outline-secondary'className="submitButton" onClick={() => {
             if(validateFields(replacementInfo)){
-                postTireChangeInfo(empId, replacementInfo);
+                postTireChangeInfo(replacementInfo);
                 return showAlert();
             }else return throwError();}}>Submit</Button>
     </Form>
@@ -82,18 +90,18 @@ function validateFields(input) {
 }
 
 const mapStateToProps = state => ({
-    empId: state.employee.empId,
     replacementInfo: state.replacementInfo,
-    models: state.tireModel
+    truckLicensePlates: state.truck.trackedTrucks,
+    models: state.tireModel.inStockTires
 })
 const mapDispatchToProps = dispatch => ({
     updateMileage: mileage => dispatch(updateMileage(mileage)),
     updateModel: id => dispatch(updateModel(id)),
-    updateLicensePlate: licensePlate => dispatch(updateLicensePlate(licensePlate)),
+    updateTruckId: truckId => dispatch(updateTruckId(truckId)),
     updateIndex: index => dispatch(updateIndex(index)),
     showAlert: () => dispatch(showAlert()),
     hideAlert: () => dispatch(hideAlert()),
-    postTireChangeInfo: (empId, info) => dispatch(postTireChangeInfo(empId, info)),
+    postTireChangeInfo: (info) => dispatch(postTireChangeInfo(info)),
     throwError: () => dispatch(throwError()),
     hideError: () => dispatch(hideError())
 })

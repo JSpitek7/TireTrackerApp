@@ -1,23 +1,28 @@
-const initialState = {
-    truckLicensePlate: '',
-    truckModelId: '',
-    truckMileage: '',
+let initialState = {
+    tireModelId: '',
+    tirePurchaseQuantity: '',
+    tirePurchasePricePerUnit: '',
+    tireVendorId: '',
     alert: false,
     error: false
 }
-const addTruck =(state = initialState, action) => {
+const purchaseInfo =(state = initialState, action) => {
     switch (action.type) {
-        case 'UPDATE_TRUCK_LICENSE_PLATE':
+        case 'UPDATE_PURCHASE_TIRE_MODEL':
             return Object.assign({}, state, {
-                truckLicensePlate: action.licensePlate
+                tireModelId: action.tireModelId
             })
-        case 'UPDATE_TRUCK_MODEL':
+        case 'UPDATE_PURCHASE_QUANTITY':
             return Object.assign({}, state, {
-                truckModelId: action.model
+                tirePurchaseQuantity: action.tirePurchaseQuantity
             })
-        case 'UPDATE_TRUCK_MILEAGE':
+        case 'UPDATE_PURCHASE_PRICE_PER_UNIT':
             return Object.assign({}, state, {
-                truckMileage: action.truckMileage
+                tirePurchasePricePerUnit: action.tirePurchasePricePerUnit
+            })
+        case 'UPDATE_PURCHASE_VENDOR_ID':
+            return Object.assign({}, state, {
+                tireVendorId: action.tireVendorId
             })
         case 'SHOW_ALERT':
             return Object.assign({}, state, {
@@ -39,4 +44,4 @@ const addTruck =(state = initialState, action) => {
             return state
     }
 }
-export default addTruck
+export default purchaseInfo

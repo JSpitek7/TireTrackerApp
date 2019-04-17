@@ -1,5 +1,5 @@
 let initialState = {
-    licensePlate: '',
+    truckId: '',
     index: '',
     modelId: '',
     mileage: '',
@@ -16,9 +16,9 @@ const replacementInfo =(state = initialState, action) => {
             return Object.assign({}, state, {
                 modelId: action.model
             })
-        case 'UPDATE_LICENSE_PLATE':
+        case 'UPDATE_TRUCK_ID':
             return Object.assign({}, state, {
-                licensePlate: action.licensePlate
+                truckId: action.truckId
             })
         case 'UPDATE_INDEX':
             return Object.assign({}, state, {
