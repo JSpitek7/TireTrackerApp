@@ -14,21 +14,29 @@ import DriverProfilePage from './components/pages/driverProfilePage.js'
 import TireReplacementPage from './components/pages/tireReplacementPage.js'
 import LoginPage from './components/pages/loginPage.js'
 import TruckPage from './components/pages/truckPage.js'
-import {fetchModels,fetchTruckModels} from './actions/async.js'
+import PurchasePage from './components/pages/purchasePage.js'
+import {fetchInStockModels,
+        fetchTruckModels,
+        fetchAllModels,
+        fetchVendors} from './actions/async.js'
 
 const loggerMiddleWare = createLogger();
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, loggerMiddleWare));
-store.dispatch(fetchModels());
+store.dispatch(fetchInStockModels());
+store.dispatch(fetchAllModels());
 store.dispatch(fetchTruckModels());
+store.dispatch(fetchVendors());
 
 render(
     <Provider store={store}>
         <App>
         <Router history={history}>
+                    <Route exact path="/" component={LoginPage}/>
                     <Route exact path="/login" component={LoginPage}/>
                     <Route exact path="/tire" component={TireReplacementPage}/>
                     <Route exact path="/driver" component={DriverProfilePage}/>
                     <Route exact path="/manager" component={AdminDashboardPage}/>
+                    <Route exact path="/purchase" component={PurchasePage}/>
                     <Route exact path="/truck" component={TruckPage}/>
         </Router>
         </App>

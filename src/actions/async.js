@@ -1,10 +1,16 @@
 import { userLogin,
         requestLogin,
         receiveLogin,
-        requestModels,
-        receiveModels,
+        requestAllModels,
+        receiveAllModels,
+        requestInStockModels,
+        receiveInStockModels,
         requestTruckModels,
-        receiveTruckModels } from './index.js'
+        receiveTruckModels,
+        requestTrackedTrucks,
+        receiveTrackedTrucks,
+        requestVendors,
+        receiveVendors } from './index.js'
 import history from '../history.js'
 let url = 'http://localhost:8080'
 
@@ -22,16 +28,37 @@ export function login(username, password) {
                 if(jsonResponse.foundUser){
                     dispatch(userLogin());
                     dispatch(receiveLogin(jsonResponse));
-                    history.push((jsonResponse.empType === 'Truck Driver')? '/tire': '/manager');
+                    if(jsonResponse.empType === 'Truck Driver'){
+                        history.push('/tire');
+                        dispatch(fetchTrackedTrucks(jsonResponse.empId));
+                    } else {
+                        history.push('/manager');
+                    }
                 } else {
                     console.log("it did this instead");
                 }
             })
     }
 }
-export function fetchModels() {
+export function fetchInStockModels() {
     return dispatch => {
-        dispatch(requestModels())
+        dispatch(requestInStockModels())
+        return fetch(url + '/tires/inStock')
+        .then(
+            response => response.json(),
+            error => {
+                console.log('An error occured.', error);
+                return [];
+            }
+        )
+        .then(jsonResponse => {
+            dispatch(receiveInStockModels(jsonResponse));
+        })
+    }
+}
+export function fetchAllModels() {
+    return dispatch => {
+        dispatch(requestAllModels())
         return fetch(url + '/tires')
         .then(
             response => response.json(),
@@ -41,7 +68,7 @@ export function fetchModels() {
             }
         )
         .then(jsonResponse => {
-            dispatch(receiveModels(jsonResponse));
+            dispatch(receiveAllModels(jsonResponse));
         })
     }
 }
@@ -61,7 +88,39 @@ export function fetchTruckModels() {
         })
     }
 }
-export function postTireChangeInfo(driverId, info) {
+export function fetchTrackedTrucks(empId) {
+    return dispatch => {
+        dispatch(requestTrackedTrucks())
+        return fetch(url + '/trucks/tracked/' + empId)
+        .then(
+            response => response.json(),
+            error => {
+                console.log('An error occured.', error);
+                return [];
+            }
+        )
+        .then(jsonResponse => {
+            dispatch(receiveTrackedTrucks(jsonResponse));
+        })
+    }
+}
+export function fetchVendors() {
+    return dispatch => {
+        dispatch(requestVendors())
+        return fetch(url + '/vendors')
+        .then(
+            response => response.json(),
+            error => {
+                console.log('An error occured.', error);
+                return [];
+            }
+        )
+        .then(jsonResponse => {
+            dispatch(receiveVendors(jsonResponse));
+        })
+    }
+}
+export function postTireChangeInfo(info) {
     return () => {
         fetch(url + '/tires/changeTire', {
             method: 'POST',
@@ -69,11 +128,10 @@ export function postTireChangeInfo(driverId, info) {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                driverId: driverId,
+                truckId: info.truckId,
                 mileage: info.mileage,
                 tireIndex: info.index,
                 modelId: info.modelId,
-                licensePlate: info.licensePlate
             })
         })
         .catch(error => console.error('Error: ', error))
@@ -84,9 +142,6 @@ export function postTireChangeInfo(driverId, info) {
 }
 export function postAddTruckInfo(empId, addTruck, truckTire) {
     return () => {
-        console.log(empId)
-        console.log(addTruck.vin)
-        console.log(addTruck.modelId)
         fetch(url + '/trucks/add', {
             method: 'POST',
             headers: {
@@ -94,9 +149,26 @@ export function postAddTruckInfo(empId, addTruck, truckTire) {
             },
             body: JSON.stringify({
                 empId: empId,
-                trukLicensePlate: addTruck.licensePlate,
-                truckModelId: addTruck.modelId,
+                truckLicensePlate: addTruck.truckLicensePlate,
+                truckModelId: addTruck.truckModelId,
+                truckMileage: addTruck.truckMileage,
                 truckTireDtoList: truckTire
+            })
+        })
+    }
+}
+export function postPurchaseTireInfo(purchaseInfo) {
+    return () => {
+        fetch(url + '/tires/purchaseTires', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                tireModelId: purchaseInfo.tireModelId,
+                tirePurchaseQuantity: purchaseInfo.tirePurchaseQuantity,
+                tirePurchasePricePerUnit: purchaseInfo.tirePurchasePricePerUnit,
+                tireVendorId: purchaseInfo.tireVendorId
             })
         })
     }

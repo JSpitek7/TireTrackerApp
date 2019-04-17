@@ -31,6 +31,20 @@ const NavView = ({loggedIn, role}) => (
                         </Nav.Item>
                     </div>
             </div></div>
+            </Nav>: <div/>}
+            {(role=='Fleet Manager')? <Nav bg='dark' fill variant="tabs" onSelect={k => history.push(k)}>
+                <div class='container'><div class='row'>
+                    <div class='col'>
+                        <Nav.Item>
+                            <b><Nav.Link eventKey='/manager'>Manager Dashboard</Nav.Link></b>
+                        </Nav.Item>
+                    </div>
+                    <div class='col'>
+                        <Nav.Item>
+                            <b><Nav.Link eventKey='/purchase'>Tire Purchase</Nav.Link></b>
+                        </Nav.Item>
+                    </div>
+            </div></div>
             </Nav>: <div/>}</div> : <div/>}
     </div>
 )
