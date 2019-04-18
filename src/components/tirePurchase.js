@@ -40,7 +40,7 @@ const TirePurchaseView = ({ purchaseInfo, vendors, models, updatePurchaseVendor,
             </Col>
         </Form.Group>
         <Form.Group as={Form.Row} controlId="QuantityInput">
-            <Form.Label column sm={3}> Mileage</Form.Label>
+            <Form.Label column sm={3}>Quantity</Form.Label>
             <Col sm={8}>
                 <Form.Control type="Number" placeholder="Quantity Purchased" onChange={(event)=>updatePurchaseQuantity(event.target.value)}/>
             </Col>
