@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import ManagerDashboard from '../managerDashboard.js'
 
 class AdminDashboardPage extends Component {
     render() {
         return(
             <div className='userPage'>
-                The admin home page will go here.
+                <ManagerDashboard/>
             </div>
         )
     }
