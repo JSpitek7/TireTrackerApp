@@ -10,7 +10,9 @@ import { userLogin,
         requestTrackedTrucks,
         receiveTrackedTrucks,
         requestVendors,
-        receiveVendors } from './index.js'
+        receiveVendors,
+        requestTireDeathStatuses,
+        receiveTireDeathStatuses } from './index.js'
 import history from '../history.js'
 let url = 'https://tire-tracker-api.herokuapp.com'
 
@@ -69,6 +71,22 @@ export function fetchAllModels() {
         )
         .then(jsonResponse => {
             dispatch(receiveAllModels(jsonResponse));
+        })
+    }
+}
+export function fetchTireDeathStatuses() {
+    return dispatch => {
+        dispatch(requestTireDeathStatuses())
+        return fetch(url + '/tires/status')
+        .then(
+            response => response.json(),
+            error => {
+                console.log('An error occured.', error);
+                return [];
+            }
+        )
+        .then(jsonResponse => {
+            dispatch(receiveTireDeathStatuses(jsonResponse));
         })
     }
 }
@@ -132,6 +150,7 @@ export function postTireChangeInfo(info) {
                 mileage: info.mileage,
                 tireIndex: info.index,
                 modelId: info.modelId,
+                oldTireStatusId: info.oldTireStatusId
             })
         })
         .catch(error => console.error('Error: ', error))

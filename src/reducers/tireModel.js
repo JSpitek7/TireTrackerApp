@@ -1,6 +1,7 @@
 let initialState = {
     allTires: [],
-    inStockTires: []
+    inStockTires: [],
+    tireDeathStatuses: []
 }
 const tireModel =(state = initialState, action) => {
     switch (action.type) {
@@ -14,6 +15,11 @@ const tireModel =(state = initialState, action) => {
         case 'RECEIVE_IN_STOCK_MODELS':
             return Object.assign({}, state, {
                 inStockTires: action.models})
+        case 'REQUEST_TIRE_DEATH_STATUSES':
+            return state
+        case 'RECEIVE_TIRE_DEATH_STATUSES':
+            return Object.assign({}, state, {
+                tireDeathStatuses: action.statuses})
         default:
             return state
     }

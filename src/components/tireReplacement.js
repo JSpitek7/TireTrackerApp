@@ -6,14 +6,14 @@ import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import Card from 'react-bootstrap/Card'
 import './tireReplacement.css'
-import {updateTruckId, updateIndex, updateModel, updateMileage,
+import {updateTruckId, updateIndex, updateModel, updateMileage, updateOldTireStatus,
     showAlert, throwError, hideAlert, hideError} from '../actions/index.js'
 import {postTireChangeInfo} from '../actions/async.js'
 
 const tirePositions = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]
 
-const TireReplacementView = ({replacementInfo, truckLicensePlates, models, updateTruckId, updateIndex,
-    updateModel, updateMileage, postTireChangeInfo, showAlert, throwError, hideAlert, hideError}) => (
+const TireReplacementView = ({replacementInfo, truckLicensePlates, models, statuses, updateTruckId, updateIndex,
+    updateModel, updateMileage, updateOldTireStatus, postTireChangeInfo, showAlert, throwError, hideAlert, hideError}) => (
     <div className="TireReplacement"><br/><br/>
     <Form>
         <Form.Group as={Form.Row} controlId="LicensePlateInput">
@@ -38,8 +38,17 @@ const TireReplacementView = ({replacementInfo, truckLicensePlates, models, updat
             </Form.Control>
             </Col>
         </Form.Group>
+        <Form.Group as={Form.Row} controlId="TireDeathInput">
+            <Form.Label column sm={3}>Previous Tire Condition</Form.Label>
+            <Col sm={8}>
+                <Form.Control as="select" onChange={(event)=>updateOldTireStatus(event.target.value)}>
+                <option value="" selected disabled hidden>Choose Previous Tire Condition</option>
+                {statuses.map(i=><option id={i.tireStatusId} value={i.tireStatusId} key={i.tireStatusId}>{i.tireStatusDescription}</option>)}
+            </Form.Control>
+            </Col>
+        </Form.Group>
         <Form.Group as={Form.Row} controlId="Tire Model Input">
-            <Form.Label column sm={3}>Tire Model</Form.Label>
+            <Form.Label column sm={3}> New Tire Model</Form.Label>
             <Col sm={8}>
             <Form.Control as="select" onChange={(event)=>updateModel(event.target.value)}>
                 <option value="" selected disabled hidden>Choose Tire Model</option>
@@ -92,13 +101,15 @@ function validateFields(input) {
 const mapStateToProps = state => ({
     replacementInfo: state.replacementInfo,
     truckLicensePlates: state.truck.trackedTrucks,
-    models: state.tireModel.inStockTires
+    models: state.tireModel.inStockTires,
+    statuses: state.tireModel.tireDeathStatuses
 })
 const mapDispatchToProps = dispatch => ({
     updateMileage: mileage => dispatch(updateMileage(mileage)),
     updateModel: id => dispatch(updateModel(id)),
     updateTruckId: truckId => dispatch(updateTruckId(truckId)),
     updateIndex: index => dispatch(updateIndex(index)),
+    updateOldTireStatus: id => dispatch(updateOldTireStatus(id)),
     showAlert: () => dispatch(showAlert()),
     hideAlert: () => dispatch(hideAlert()),
     postTireChangeInfo: (info) => dispatch(postTireChangeInfo(info)),
