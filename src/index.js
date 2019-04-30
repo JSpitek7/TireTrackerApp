@@ -16,6 +16,7 @@ import LoginPage from './components/pages/loginPage.js'
 import TruckPage from './components/pages/truckPage.js'
 import PurchasePage from './components/pages/purchasePage.js'
 import {fetchInStockModels,
+        fetchTireDeathStatuses,
         fetchTruckModels,
         fetchAllModels,
         fetchVendors} from './actions/async.js'
@@ -23,6 +24,7 @@ import {fetchInStockModels,
 const loggerMiddleWare = createLogger();
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, loggerMiddleWare));
 store.dispatch(fetchInStockModels());
+store.dispatch(fetchTireDeathStatuses());
 store.dispatch(fetchAllModels());
 store.dispatch(fetchTruckModels());
 store.dispatch(fetchVendors());

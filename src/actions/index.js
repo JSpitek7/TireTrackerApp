@@ -53,6 +53,17 @@ export function receiveInStockModels(json) {
         models: json
     }
 }
+export function requestTireDeathStatuses() {
+    return {
+        type: 'REQUEST_TIRE_DEATH_STATUSES'
+    }
+}
+export function receiveTireDeathStatuses(json) {
+    return {
+        type: 'RECEIVE_TIRE_DEATH_STATUSES',
+        statuses: json
+    }
+}
 export function requestTruckModels() {
     return {
         type: 'REQUEST_TRUCK_MODELS'
@@ -114,6 +125,12 @@ export function updateTruckId(truckId) {
     return {
         type: 'UPDATE_TRUCK_ID',
         truckId: truckId
+    }
+}
+export function updateOldTireStatus(id) {
+    return {
+        type: 'UPDATE_OLD_TIRE_STATUS',
+        oldTireStatusId: id
     }
 }
 export function updateTruckLicensePlate(licensePlate) {
