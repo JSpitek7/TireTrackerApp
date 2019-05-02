@@ -3,6 +3,7 @@ let initialState = {
     index: '',
     modelId: '',
     mileage: '',
+    oldTireStatusId: '',
     alert: false,
     error: false
 }
@@ -23,6 +24,10 @@ const replacementInfo =(state = initialState, action) => {
         case 'UPDATE_INDEX':
             return Object.assign({}, state, {
                 index: action.index
+            })
+        case 'UPDATE_OLD_TIRE_STATUS':
+            return Object.assign({}, state, {
+                oldTireStatusId: action.oldTireStatusId
             })
         case 'SHOW_ALERT':
             return Object.assign({}, state, {
